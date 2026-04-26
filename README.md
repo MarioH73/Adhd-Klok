@@ -1,0 +1,2 @@
+# Adhd-Klok
+Pauze Klok
