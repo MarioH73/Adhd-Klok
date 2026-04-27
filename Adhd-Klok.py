@@ -2,20 +2,59 @@ import tkinter as tk
 import time
 import math
 from datetime import datetime
-import os
+import requests
 
-# Afmetingen klok
+# 🌤️ Weer ophalen
+def get_weather():
+    try:
+        api_key = "653d15bb3beea42def92eda4f833e909"
+        city = "Leiden"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric&lang=nl"
+        data = requests.get(url).json()
+
+        temp = round(data["main"]["temp"])
+        icon_code = data["weather"][0]["icon"]
+
+        icon_map = {
+            "01d": "☀️", "01n": "🌙",
+            "02d": "🌤️", "02n": "☁️",
+            "03d": "☁️", "03n": "☁️",
+            "04d": "☁️", "04n": "☁️",
+            "09d": "🌧️", "09n": "🌧️",
+            "10d": "🌦️", "10n": "🌧️",
+            "11d": "🌩️", "11n": "🌩️",
+            "13d": "❄️", "13n": "❄️",
+            "50d": "🌫️", "50n": "🌫️"
+        }
+
+        icoon = icon_map.get(icon_code, "🌡️")
+        return f"{icoon} {temp}°C"
+    except:
+        return "🌡️ ?°C"
+
+
+# 📅 Datum in NL
+def get_nederlandse_datum():
+    maanden = ["Jan", "Feb", "Mrt", "Apr", "Mei", "Jun",
+               "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
+    dagen = ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"]
+    v = datetime.now()
+    return f"{dagen[v.weekday()]} {v.day} {maanden[v.month - 1]} {v.year}"
+
+
+# 🕒 Klok instellingen
 WIDTH = 420
 HEIGHT = 420
 CENTER_X = WIDTH // 2
 CENTER_Y = HEIGHT // 2
 CLOCK_RADIUS = 150
 
-# Timerstatus
+# ⏱️ Timer variabelen
 timer_running = False
 timer_seconds = 0
 
-# 📁 Positie opslaan en laden
+
+# 📁 Positie opslaan / laden
 def laad_positie():
     try:
         with open("positie.txt", "r") as f:
@@ -28,17 +67,44 @@ def sla_positie_op(x, y):
     with open("positie.txt", "w") as f:
         f.write(f"{x},{y}")
 
-# 📅 Datum in het Nederlands
-def get_nederlandse_datum():
-    maanden = ["Jan", "Feb", "Mrt", "Apr", "Mei", "Jun",
-               "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"]
-    dagen = ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"]
-    vandaag = datetime.now()
-    dag = dagen[vandaag.weekday()]
-    datum = f"{dag} {vandaag.day} {maanden[vandaag.month - 1]} {vandaag.year}"
-    return datum
 
-# ⏱️ Timerfuncties
+# ⏱️ Timer instellen popup
+def timer_instellen():
+    popup = tk.Toplevel(root)
+    popup.title("Timer instellen")
+    popup.geometry("250x180")
+    popup.configure(bg="#0a0a23")
+    popup.resizable(False, False)
+
+    tk.Label(popup, text="Uren:", font=("Calibri Semilight", 12), fg="#B7BEFF", bg="#0a0a23").place(x=20, y=20)
+    tk.Label(popup, text="Minuten:", font=("Calibri Semilight", 12), fg="#B7BEFF", bg="#0a0a23").place(x=20, y=60)
+    tk.Label(popup, text="Seconden:", font=("Calibri Semilight", 12), fg="#B7BEFF", bg="#0a0a23").place(x=20, y=100)
+
+    uren_var = tk.StringVar(value="0")
+    min_var = tk.StringVar(value="0")
+    sec_var = tk.StringVar(value="0")
+
+    tk.Entry(popup, textvariable=uren_var, width=5, font=("Calibri", 12)).place(x=120, y=20)
+    tk.Entry(popup, textvariable=min_var, width=5, font=("Calibri", 12)).place(x=120, y=60)
+    tk.Entry(popup, textvariable=sec_var, width=5, font=("Calibri", 12)).place(x=120, y=100)
+
+    def opslaan():
+        global timer_seconds
+        try:
+            h = int(uren_var.get())
+            m = int(min_var.get())
+            s = int(sec_var.get())
+            timer_seconds = h * 3600 + m * 60 + s
+        except:
+            timer_seconds = 0
+        popup.destroy()
+
+    tk.Button(popup, text="Opslaan", font=("Calibri Semilight", 12),
+              bg="#5050DE", fg="white", bd=0, padx=10, pady=5,
+              command=opslaan).place(x=80, y=140)
+
+
+# ▶️⏸️🔄 Timer knoppen
 def start_timer():
     global timer_running
     timer_running = True
@@ -51,180 +117,23 @@ def reset_timer():
     global timer_seconds
     timer_seconds = 0
 
-# 🪟 Hoofdvenster klok
+
+# 🪟 Hoofdvenster
 root = tk.Tk()
 root.overrideredirect(True)
 root.wm_attributes("-transparentcolor", "#0a0a23")
 
-# 📍 Positie bepalen
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
+# startpositie (optioneel uit bestand)
 positie = laad_positie()
 if positie:
-    window_x, window_y = positie
+    x, y = positie
+    root.geometry(f"{WIDTH}x{HEIGHT}+{x}+{y}")
 else:
-    window_x = (screen_width // 2) - WIDTH // 2
-    window_y = (screen_height // 2) - HEIGHT // 2 + 25
-root.geometry(f"{WIDTH}x{HEIGHT}+{window_x}+{window_y}")
+    root.geometry(f"{WIDTH}x{HEIGHT}+100+100")
 
 canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT, bg="#0a0a23", highlightthickness=0)
 canvas.pack()
 
-# 🕰️ Klok tekenen
-def draw_clock_face():
-    # Minuutstreepjes (gedimd cyaan)
-    for i in range(60):
-        angle = math.radians(i * 6)
-        x_start = CENTER_X + CLOCK_RADIUS * 0.92 * math.sin(angle)
-        y_start = CENTER_Y - CLOCK_RADIUS * 0.92 * math.cos(angle)
-        x_end = CENTER_X + CLOCK_RADIUS * math.sin(angle)
-        y_end = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
-        canvas.create_line(x_start, y_start, x_end, y_end, fill="#3399ff", width=0.5)
-
-    # Uurstreepjes (iets langer en dikker)
-    for i in range(12):
-        angle = math.radians(i * 30)
-        x_start = CENTER_X + CLOCK_RADIUS * 0.88 * math.sin(angle)
-        y_start = CENTER_Y - CLOCK_RADIUS * 0.88 * math.cos(angle)
-        x_end = CENTER_X + CLOCK_RADIUS * math.sin(angle)
-        y_end = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
-        canvas.create_line(x_start, y_start, x_end, y_end, fill="#FF0000", width=1.5)
-
-    # Uurcijfers
-    for i in range(12):
-        angle = math.radians(i * 30)
-        x = CENTER_X + CLOCK_RADIUS * 0.75 * math.sin(angle)
-        y = CENTER_Y - CLOCK_RADIUS * 0.75 * math.cos(angle)
-        canvas.create_text(x, y, text=str(i if i != 0 else 12),
-                           fill="#B7BEFF", font=("Helvetica", 14, "bold"))
-
-    # ❌ Sluitknop buiten de klokring (ongeveer 35 graden)
-    angle = math.radians(35)
-    x = CENTER_X + CLOCK_RADIUS * 1.1 * math.sin(angle)
-    y = CENTER_Y - CLOCK_RADIUS * 1.1 * math.cos(angle)
-    canvas.create_text(x, y, text="❌", fill="red", font=("Helvetica", 10, "bold"), tags="close_button")
-
-
-
-# 🕹️ Wijzers tekenen
-def draw_hand(length, angle_deg, color, width):
-    angle_rad = math.radians(angle_deg)
-    x = CENTER_X + length * math.sin(angle_rad)
-    y = CENTER_Y - length * math.cos(angle_rad)
-    canvas.create_line(CENTER_X, CENTER_Y, x, y, fill=color, width=width, tags="hands")
-
-# 🔄 Klok en timer updaten
-def update_clock():
-    global timer_seconds, timer_running
-    canvas.delete("hands")
-    canvas.delete("datum")
-    canvas.delete("timer")
-    canvas.delete("timer_label")
-    canvas.delete("pauze")
-    canvas.delete("weer")
-
-    now = time.localtime()
-    sec = now.tm_sec
-    min = now.tm_min
-    hr = now.tm_hour % 12
-
-    sec_angle = sec * 6
-    min_angle = min * 6 + sec * 0.1
-    hr_angle = hr * 30 + min * 0.5
-
-    draw_hand(CLOCK_RADIUS * 0.9, sec_angle, "#ff0000", 1)
-    draw_hand(CLOCK_RADIUS * 0.75, min_angle, "#6663FF", 3)
-    draw_hand(CLOCK_RADIUS * 0.5, hr_angle, "#6664fd", 3)
-
-    canvas.create_oval(CENTER_X - 5, CENTER_Y - 5, CENTER_X + 5, CENTER_Y + 5,
-                       fill="#ff0000", tags="hands")
-
-    # 📅 Datum onder de klok
-    canvas.create_text(CENTER_X, HEIGHT - 150,
-                       text=get_nederlandse_datum(),
-                       font=("Segoe UI", 11),
-                       fill="#fbff00",
-                       tags="datum")
-
-    # ⏱️ Timer
-    if timer_running:
-        timer_seconds += 1
-
-    hours = timer_seconds // 3600
-    minutes = (timer_seconds % 3600) // 60
-    seconds = timer_seconds % 60
-    tijd = f"{hours:02}:{minutes:02}:{seconds:02}"
-
-    # Label boven de tijd
-    canvas.create_text(CENTER_X, HEIGHT - 285,
-                       text="Timer",
-                       font=("Segoe UI", 11, "bold"),
-                       fill="#fafffe",
-                       tags="timer_label")
-
-    # Tijd zelf
-    canvas.create_text(CENTER_X, HEIGHT - 270,
-                       text=tijd,
-                       font=("Segoe UI", 12, "italic"),
-                       fill="#fafffe",
-                       tags="timer")
-
-    # ⏸️ Pauzeherinnering na elk uur
-    if timer_seconds % 3600 == 0 and timer_seconds != 0:
-        canvas.create_text(CENTER_X, HEIGHT - 310,
-                           text="Je werkt al een uur. Tijd voor een pauze!",
-                           font=("Segoe UI", 10),
-                           fill="#ff8080",
-                           tags="pauze")
-        timer_running = False  # automatisch pauzeren
-
-    # 🌤️ Weerbericht tussen 9 en het middelpunt
-    angle = math.radians(255)
-    x = CENTER_X + CLOCK_RADIUS * 0.6 * math.sin(angle)
-    y = CENTER_Y - CLOCK_RADIUS * 0.6 * math.cos(angle)
-    canvas.create_text(x, y,
-                       text="🌦️14°C Bewolkt",
-                       font=("Segoe UI", 8),
-                       fill="#66ccff",
-                       tags="weer")
-
-    root.after(1000, update_clock)
-
-
-
-    # ⏱️ Timer
-    if timer_running:
-        timer_seconds += 1
-
-    hours = timer_seconds // 3600
-    minutes = (timer_seconds % 3600) // 60
-    seconds = timer_seconds % 60
-    tijd = f"{hours:02}:{minutes:02}:{seconds:02}"
-
-# Timer label boven de tijd
-    canvas.create_text(CENTER_X, HEIGHT - 285,
-                       text="Timer",
-                       font=("Segoe UI", 11, "bold"),
-                       fill="#fafffe",
-                       tags="timer_label")
-
-    # Tijd zelf
-    canvas.create_text(CENTER_X, HEIGHT - 270,
-                       text=tijd,
-                       font=("Segoe UI", 12, "italic"),
-                       fill="#fafffe",
-                       tags="timer")
-
- # ⏸️ Pauzeherinnering na elk uur
-    if timer_seconds % 3600 == 0 and timer_seconds != 0:
-        canvas.create_text(CENTER_X, HEIGHT - 310,
-                           text="Je werkt al een uur. Tijd voor een pauze!",
-                           font=("Helvetica", 10),
-                           fill="#ff8080",
-                           tags="pauze")
-        timer_running = False  # automatisch pauzeren
-
-    root.after(1000, update_clock)
 
 # 🖱️ Versleepbaar maken + positie opslaan
 def start_move(event):
@@ -237,44 +146,155 @@ def do_move(event):
     root.geometry(f"+{x}+{y}")
     sla_positie_op(x, y)
 
-# ❌ Sluitknop detecteren
+
+# 🕰️ Klok tekenen
+def draw_clock_face():
+    for i in range(60):
+        angle = math.radians(i * 6)
+        x1 = CENTER_X + CLOCK_RADIUS * 0.92 * math.sin(angle)
+        y1 = CENTER_Y - CLOCK_RADIUS * 0.92 * math.cos(angle)
+        x2 = CENTER_X + CLOCK_RADIUS * math.sin(angle)
+        y2 = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
+        canvas.create_line(x1, y1, x2, y2, fill="#B7BEFF", width=0.5)
+
+    for i in range(12):
+        angle = math.radians(i * 30)
+        x1 = CENTER_X + CLOCK_RADIUS * 0.88 * math.sin(angle)
+        y1 = CENTER_Y - CLOCK_RADIUS * 0.88 * math.cos(angle)
+        x2 = CENTER_X + CLOCK_RADIUS * math.sin(angle)
+        y2 = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
+        canvas.create_line(x1, y1, x2, y2, fill="#FF0000", width=1.5)
+
+        x = CENTER_X + CLOCK_RADIUS * 0.75 * math.sin(angle)
+        y = CENTER_Y - CLOCK_RADIUS * 0.75 * math.cos(angle)
+        canvas.create_text(x, y, text=str(i if i != 0 else 12),
+                           fill="#B7BEFF", font=("Calibri Semilight", 18))
+
+    angle = math.radians(35)
+    x = CENTER_X + CLOCK_RADIUS * 1.1 * math.sin(angle)
+    y = CENTER_Y - CLOCK_RADIUS * 1.1 * math.cos(angle)
+    canvas.create_text(x, y, text="❌", fill="red", font=("Calibri Semilight", 15), tags="close_button")
+
+
+# 🕹️ Wijzers
+def draw_hand(length, angle_deg, color, width):
+    angle_rad = math.radians(angle_deg)
+    x = CENTER_X + length * math.sin(angle_rad)
+    y = CENTER_Y - length * math.cos(angle_rad)
+    canvas.create_line(CENTER_X, CENTER_Y, x, y, fill=color, width=width, tags="hands")
+
+
+# 🔄 Update klok
+def update_clock():
+    global timer_seconds, timer_running
+
+    canvas.delete("hands", "datum", "timer", "timer_label", "pauze", "weer")
+
+    now = time.localtime()
+    sec = now.tm_sec
+    minute = now.tm_min
+    hour = now.tm_hour % 12
+
+    draw_hand(CLOCK_RADIUS * 0.9, sec * 6, "#ff0000", 1)
+    draw_hand(CLOCK_RADIUS * 0.75, minute * 6 + sec * 0.1, "#B7BEFF", 3)
+    draw_hand(CLOCK_RADIUS * 0.5, hour * 30 + minute * 0.5, "#B7BEFF", 5)
+
+    canvas.create_oval(CENTER_X - 5, CENTER_Y - 5,
+                       CENTER_X + 5, CENTER_Y + 5,
+                       fill="#ff0000", tags="hands")
+
+    canvas.create_text(CENTER_X, HEIGHT - 180,
+                       text=get_nederlandse_datum(),
+                       font=("Calibri Semilight", 15),
+                       fill="#B7BEFF",
+                       tags="datum")
+
+    # ⏱️ Aftellen
+    if timer_running and timer_seconds > 0:
+        timer_seconds -= 1
+
+    if timer_seconds <= 0 and timer_running:
+        timer_running = False
+        timer_seconds = 0
+
+    h = timer_seconds // 3600
+    m = (timer_seconds % 3600) // 60
+    s = timer_seconds % 60
+
+    canvas.create_text(CENTER_X, HEIGHT - 295,
+                       text="Timer",
+                       font=("Calibri Semilight", 15),
+                       fill="#B7BEFF",
+                       tags="timer_label")
+
+    canvas.create_text(CENTER_X, HEIGHT - 260,
+                       text=f"{h:02}:{m:02}:{s:02}",
+                       font=("Calibri Semilight", 20),
+                       fill="#B7BEFF",
+                       tags="timer")
+
+    # 🌤️ Weer
+    weer = get_weather()
+    icoon, temp = weer.split(" ", 1)
+
+    kleur_map = {
+        "☀️": "#ffd84d", "🌙": "#ffe680", "🌤️": "#ffe680",
+        "☁️": "#d0d0d0", "🌧️": "#66ccff", "🌦️": "#66ccff",
+        "🌩️": "#c084ff", "❄️": "#aee6ff", "🌫️": "#bbbbbb"
+    }
+
+    kleur = kleur_map.get(icoon, "#ffffff")
+
+    canvas.create_text(CENTER_X, HEIGHT - 150,
+                       text=icoon,
+                       font=("Segoe UI Emoji", 20),
+                       fill=kleur,
+                       tags="weer")
+
+    canvas.create_text(CENTER_X, HEIGHT - 132,
+                       text=temp,
+                       font=("Calibri Semilight", 15),
+                       fill="#66ccff",
+                       tags="weer")
+
+    root.after(1000, update_clock)
+
+
+# ❌ Sluitknop
 def check_close(event):
     items = canvas.find_withtag("close_button")
     for item in items:
-        coords = canvas.coords(item)
-        if len(coords) == 2:
-            x, y = coords
-            if abs(event.x - x) < 10 and abs(event.y - y) < 10:
-                root.destroy()
+        x, y = canvas.coords(item)
+        if abs(event.x - x) < 10 and abs(event.y - y) < 10:
+            root.destroy()
 
+
+# 🔗 Binds
 canvas.bind("<Button-1>", start_move)
 canvas.bind("<B1-Motion>", do_move)
 canvas.bind("<ButtonRelease-1>", check_close)
 
-# ▶️⏸️🔄 Timerknoppen
-btn_frame = tk.Frame(root, bg="#0a0a23")
-btn_frame.place(x=CENTER_X - 55, y=HEIGHT - 50)
+
+# ▶️⏸️🔄 Knoppen
+btn_frame = tk.Frame(root, bg="#B7BEFF")
+btn_frame.place(x=CENTER_X - 70, y=HEIGHT - 50)
 
 button_style = {
-    "bg": "#050544",
+    "bg": "#5050DE",
     "fg": "white",
-    "bd": 0.5,
-    "padx": 0,
-    "pady": 0,
-    "highlightthickness": 1,
-    "highlightbackground": "white"
+    "bd": 0,
+    "padx": 5,
+    "pady": 2,
+    "highlightthickness": 0
 }
 
-tk.Button(btn_frame, text="▶️", command=start_timer, **button_style).grid(row=0, column=0, padx=3, pady=2)
-tk.Button(btn_frame, text="⏸️", command=pause_timer, **button_style).grid(row=0, column=1, padx=3, pady=2)
-tk.Button(btn_frame, text="🔄", command=reset_timer, **button_style).grid(row=0, column=2, padx=3, pady=2)
+tk.Button(btn_frame, text="⏱️", command=timer_instellen, **button_style).grid(row=0, column=0, padx=4)
+tk.Button(btn_frame, text="▶️", command=start_timer, **button_style).grid(row=0, column=1, padx=4)
+tk.Button(btn_frame, text="⏸️", command=pause_timer, **button_style).grid(row=0, column=2, padx=4)
+tk.Button(btn_frame, text="🔄", command=reset_timer, **button_style).grid(row=0, column=3, padx=4)
 
-# 🏷️ Bedieningstekst onder knoppen
-bediening_label = tk.Label(root, text="Bediening Timer", font=("Helvetica", 10),
-                           fg="#5234db", bg="#0a0a23")
-bediening_label.place(x=CENTER_X - 60, y=HEIGHT - 25)
 
-# 🚀 Start klok
+# 🚀 Start
 draw_clock_face()
 update_clock()
 root.mainloop()
