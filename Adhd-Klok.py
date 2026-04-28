@@ -4,12 +4,15 @@ import math
 from datetime import datetime
 import requests
 
+# 🌤️ Weerlocatie
+weather_city = "Leiden"
+weather_country = "NL"
+
 # 🌤️ Weer ophalen
 def get_weather():
     try:
         api_key = "653d15bb3beea42def92eda4f833e909"
-        city = "Leiden"
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric&lang=nl"
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={weather_city},{weather_country}&appid={api_key}&units=metric&lang=nl"
         data = requests.get(url).json()
 
         temp = round(data["main"]["temp"])
@@ -28,9 +31,9 @@ def get_weather():
         }
 
         icoon = icon_map.get(icon_code, "🌡️")
-        return f"{icoon} {temp}°C"
+        return icoon, f"{temp}°C"
     except:
-        return "🌡️ ?°C"
+        return "🌡️", "?°C"
 
 
 # 📅 Datum in NL
@@ -57,15 +60,49 @@ timer_seconds = 0
 # 📁 Positie opslaan / laden
 def laad_positie():
     try:
-        with open("positie.txt", "r") as f:
+        with open("position.txt", "r") as f:
             x, y = f.read().split(",")
             return int(x), int(y)
     except:
         return None
 
 def sla_positie_op(x, y):
-    with open("positie.txt", "w") as f:
+    with open("position.txt", "w") as f:
         f.write(f"{x},{y}")
+
+
+# 🌤️ Weerinstellingen popup
+def weer_instellingen():
+    popup = tk.Toplevel(root)
+    popup.title("Weerinstellingen")
+    popup.geometry("260x180")
+    popup.configure(bg="#0a0a23")
+    popup.resizable(False, False)
+
+    tk.Label(popup, text="Plaats:", font=("Calibri Semilight", 12),
+             fg="#B7BEFF", bg="#0a0a23").place(x=20, y=20)
+
+    tk.Label(popup, text="Landcode (NL, BE, US):", font=("Calibri Semilight", 12),
+             fg="#B7BEFF", bg="#0a0a23").place(x=20, y=70)
+
+    city_var = tk.StringVar(value=weather_city)
+    country_var = tk.StringVar(value=weather_country)
+
+    tk.Entry(popup, textvariable=city_var, width=15,
+             font=("Calibri", 12)).place(x=20, y=45)
+
+    tk.Entry(popup, textvariable=country_var, width=5,
+             font=("Calibri", 12)).place(x=20, y=95)
+
+    def opslaan():
+        global weather_city, weather_country
+        weather_city = city_var.get()
+        weather_country = country_var.get()
+        popup.destroy()
+
+    tk.Button(popup, text="Opslaan", font=("Calibri Semilight", 12),
+              bg="#5050DE", fg="white", bd=0, padx=10, pady=5,
+              command=opslaan).place(x=90, y=130)
 
 
 # ⏱️ Timer instellen popup
@@ -123,7 +160,6 @@ root = tk.Tk()
 root.overrideredirect(True)
 root.wm_attributes("-transparentcolor", "#0a0a23")
 
-# startpositie (optioneel uit bestand)
 positie = laad_positie()
 if positie:
     x, y = positie
@@ -135,7 +171,7 @@ canvas = tk.Canvas(root, width=WIDTH, height=HEIGHT, bg="#0a0a23", highlightthic
 canvas.pack()
 
 
-# 🖱️ Versleepbaar maken + positie opslaan
+# 🖱️ Versleepbaar maken
 def start_move(event):
     root.x_offset = event.x
     root.y_offset = event.y
@@ -163,7 +199,7 @@ def draw_clock_face():
         y1 = CENTER_Y - CLOCK_RADIUS * 0.88 * math.cos(angle)
         x2 = CENTER_X + CLOCK_RADIUS * math.sin(angle)
         y2 = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
-        canvas.create_line(x1, y1, x2, y2, fill="#FF0000", width=1.5)
+        canvas.create_line(x1, y1, x2, y2, fill="#FFFFFF", width=1.5)
 
         x = CENTER_X + CLOCK_RADIUS * 0.75 * math.sin(angle)
         y = CENTER_Y - CLOCK_RADIUS * 0.75 * math.cos(angle)
@@ -181,14 +217,14 @@ def draw_hand(length, angle_deg, color, width):
     angle_rad = math.radians(angle_deg)
     x = CENTER_X + length * math.sin(angle_rad)
     y = CENTER_Y - length * math.cos(angle_rad)
-    canvas.create_line(CENTER_X, CENTER_Y, x, y, fill=color, width=width, tags="hands")
+    canvas.create_line(CENTER_X, CENTER_Y, x, y, fill="#FFFFFF", width=width+1, tags="hands")
 
 
 # 🔄 Update klok
 def update_clock():
     global timer_seconds, timer_running
 
-    canvas.delete("hands", "datum", "timer", "timer_label", "pauze", "weer")
+    canvas.delete("hands", "datum", "timer", "timer_label", "weer")
 
     now = time.localtime()
     sec = now.tm_sec
@@ -199,15 +235,11 @@ def update_clock():
     draw_hand(CLOCK_RADIUS * 0.75, minute * 6 + sec * 0.1, "#B7BEFF", 3)
     draw_hand(CLOCK_RADIUS * 0.5, hour * 30 + minute * 0.5, "#B7BEFF", 5)
 
-    canvas.create_oval(CENTER_X - 5, CENTER_Y - 5,
-                       CENTER_X + 5, CENTER_Y + 5,
+    canvas.create_oval(CENTER_X - 7, CENTER_Y - 7,
+                       CENTER_X + 7, CENTER_Y + 7,
                        fill="#ff0000", tags="hands")
 
-    canvas.create_text(CENTER_X, HEIGHT - 180,
-                       text=get_nederlandse_datum(),
-                       font=("Calibri Semilight", 15),
-                       fill="#B7BEFF",
-                       tags="datum")
+    
 
     # ⏱️ Aftellen
     if timer_running and timer_seconds > 0:
@@ -221,21 +253,28 @@ def update_clock():
     m = (timer_seconds % 3600) // 60
     s = timer_seconds % 60
 
-    canvas.create_text(CENTER_X, HEIGHT - 295,
+# eerste text Timer in de klok face
+    canvas.create_text(CENTER_X, HEIGHT - 290,
                        text="Timer",
-                       font=("Calibri Semilight", 15),
+                       font=("Calibri Semilight", 12),
                        fill="#B7BEFF",
                        tags="timer_label")
 
+#tweede text 00:00:00 in de klok face
     canvas.create_text(CENTER_X, HEIGHT - 260,
                        text=f"{h:02}:{m:02}:{s:02}",
                        font=("Calibri Semilight", 20),
                        fill="#B7BEFF",
                        tags="timer")
+#Derde text Datum in de klok face    
+    canvas.create_text(CENTER_X, HEIGHT - 230,
+                       text=get_nederlandse_datum(),
+                       font=("Calibri Semilight", 12),
+                       fill="#B7BEFF",
+                       tags="datum")
 
-    # 🌤️ Weer
-    weer = get_weather()
-    icoon, temp = weer.split(" ", 1)
+    # 🌤️ Weer opnieuw tekenen
+    icoon, temp = get_weather()
 
     kleur_map = {
         "☀️": "#ffd84d", "🌙": "#ffe680", "🌤️": "#ffe680",
@@ -245,13 +284,22 @@ def update_clock():
 
     kleur = kleur_map.get(icoon, "#ffffff")
 
-    canvas.create_text(CENTER_X, HEIGHT - 150,
+    #Vierde text Plaatsnaam in de klok face 
+    canvas.create_text(CENTER_X, HEIGHT - 190,
+                       text=f"{weather_city}, {weather_country}",
+                       font=("Calibri Semilight", 12),
+                       fill="#B7BEFF",
+                       tags="weer")
+
+    #Vijfde text Icoon in de klok face
+    canvas.create_text(CENTER_X, HEIGHT - 160,
                        text=icoon,
                        font=("Segoe UI Emoji", 20),
                        fill=kleur,
                        tags="weer")
 
-    canvas.create_text(CENTER_X, HEIGHT - 132,
+    #Zesde text Temeratuur in de clok face 
+    canvas.create_text(CENTER_X, HEIGHT - 130,
                        text=temp,
                        font=("Calibri Semilight", 15),
                        fill="#66ccff",
@@ -292,6 +340,7 @@ tk.Button(btn_frame, text="⏱️", command=timer_instellen, **button_style).gri
 tk.Button(btn_frame, text="▶️", command=start_timer, **button_style).grid(row=0, column=1, padx=4)
 tk.Button(btn_frame, text="⏸️", command=pause_timer, **button_style).grid(row=0, column=2, padx=4)
 tk.Button(btn_frame, text="🔄", command=reset_timer, **button_style).grid(row=0, column=3, padx=4)
+tk.Button(btn_frame, text="🌤️", command=weer_instellingen, **button_style).grid(row=0, column=4, padx=4)
 
 
 # 🚀 Start
