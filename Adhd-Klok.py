@@ -120,7 +120,7 @@ def bind_tooltip(widget, tag, text):
     widget.tag_bind(tag, "<Enter>", enter)
     widget.tag_bind(tag, "<Leave>", leave)
 
-# Klok face
+# Klok face eerste zijn de seconde
 def draw_clock_face():
     for i in range(60):
         angle = math.radians(i * 6)
@@ -129,19 +129,19 @@ def draw_clock_face():
         x2 = CENTER_X + CLOCK_RADIUS * math.sin(angle)
         y2 = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
         canvas.create_line(x1, y1, x2, y2, fill="#7B88FC", width=0.5)
-
+# Uur streepjes
     for i in range(12):
         angle = math.radians(i * 30)
         x1 = CENTER_X + CLOCK_RADIUS * 0.88 * math.sin(angle)
         y1 = CENTER_Y - CLOCK_RADIUS * 0.88 * math.cos(angle)
         x2 = CENTER_X + CLOCK_RADIUS * math.sin(angle)
         y2 = CENTER_Y - CLOCK_RADIUS * math.cos(angle)
-        canvas.create_line(x1, y1, x2, y2, fill="#FABBBB", width=1.5)
-
+        canvas.create_line(x1, y1, x2, y2, fill="#B7BEFF", width=1.5)
+# Klok cijfers
         x = CENTER_X + CLOCK_RADIUS * 0.75 * math.sin(angle)
         y = CENTER_Y - CLOCK_RADIUS * 0.75 * math.cos(angle)
         canvas.create_text(x, y, text=str(i if i != 0 else 12),
-                           fill="#575D97", font=("Calibri Semilight", 18))
+                           fill="#B7BEFF", font=("Calibri Semilight", 18))
 
 # Wijzers
 def draw_hand(length, angle_deg, color, width):
@@ -150,7 +150,7 @@ def draw_hand(length, angle_deg, color, width):
     y = CENTER_Y - length * math.cos(angle_rad)
     canvas.create_line(CENTER_X, CENTER_Y, x, y,
                        fill=color, width=width, tags="hands")
-
+#Timer instelingen menu
 def timer_instellen():
     popup = tk.Toplevel(root)
     popup.title("Timer instellen")
@@ -167,9 +167,9 @@ def timer_instellen():
     tk.Label(popup, text="Seconden:", font=("Calibri Semilight", 12),
              fg="#B7BEFF", bg="#0a0a23").place(x=20, y=100)
 
-    uren_var = tk.StringVar(value="0")
-    min_var = tk.StringVar(value="0")
-    sec_var = tk.StringVar(value="0")
+    uren_var = tk.StringVar(value="00")
+    min_var = tk.StringVar(value="00")
+    sec_var = tk.StringVar(value="00")
 
     tk.Entry(popup, textvariable=uren_var, width=5,
              font=("Calibri", 12)).place(x=120, y=20)
@@ -192,7 +192,7 @@ def timer_instellen():
         popup.destroy()
 
     tk.Button(popup, text="Start Timer", font=("Calibri Semilight", 12),
-              bg="#5050DE", fg="white", bd=0, padx=10, pady=5,
+              bg="#171783", fg="#B7BEFF", bd=1, padx=10, pady=5,
               command=opslaan).place(x=80, y=140)
 
 
@@ -225,7 +225,7 @@ def weer_instellingen():
         popup.destroy()
 
     tk.Button(popup, text="Opslaan", font=("Calibri Semilight", 12),
-              bg="#5050DE", fg="white", bd=0, padx=10, pady=5,
+              bg="#171783", fg="#B7BEFF", bd=1, padx=10, pady=5,
               command=opslaan).place(x=90, y=130)
 
 # Hamburger-menu
@@ -240,15 +240,15 @@ def open_menu():
         menu.destroy()
 
     tk.Button(menu, text="⏱️ Timer instellen", font=("Calibri", 12),
-              bg="#5050DE", fg="white", bd=0,
+              bg="#0a0a23", fg="#B7BEFF", bd=1,
               command=lambda:[close_menu(), timer_instellen()]).pack(fill="x", pady=3)
 
     tk.Button(menu, text="🌤️ Weer instellen", font=("Calibri", 12),
-              bg="#5050DE", fg="white", bd=0,
+              bg="#0a0a23", fg="#B7BEFF", bd=1,
               command=lambda:[close_menu(), weer_instellingen()]).pack(fill="x", pady=3)
 
     tk.Button(menu, text="❌ Afsluiten", font=("Calibri", 12),
-              bg="#5050DE", fg="white", bd=0,
+              bg="#0a0a23", fg="#B7BEFF", bd=1,
               command=root.destroy).pack(fill="x", pady=3)
 
 
@@ -279,7 +279,7 @@ def update_clock():
     if timer_seconds <= 0 and timer_running:
         timer_running = False
         timer_seconds = 0
-        winsound.PlaySound("alarm.wav", winsound.SND_FILENAME)
+        winsound.PlaySound("Ring05.wav", winsound.SND_FILENAME)
 
 
     h = timer_seconds // 3600
@@ -342,7 +342,7 @@ def do_move(event):
 # =========================
 # BODY — UI BUILD
 # =========================
-
+# Hamburger menu
 root = tk.Tk()
 root.overrideredirect(True)
 root.wm_attributes("-transparentcolor", "#0a0a23")
@@ -364,8 +364,8 @@ canvas.bind("<B1-Motion>", do_move)
 btn_frame = tk.Frame(root, bg="#0a0a23")
 btn_frame.place(x=CENTER_X - 20, y=HEIGHT - 50)
 
-menu_button = tk.Button(btn_frame, text="☰", font=("Calibri", 18),
-                        bg="#5050DE", fg="white", bd=0,
+menu_button = tk.Button(btn_frame, text="☰", font=("Segoe UI Emoji", 18),
+                        bg="#0a0a23", fg="#B7BEFF", bd=1,
                         padx=10, pady=2, command=open_menu)
 menu_button.grid(row=0, column=0)
 
