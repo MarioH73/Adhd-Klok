@@ -22,6 +22,7 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 # Starten
 
 Benodigd: de .NET 8 SDK en Windows.
+
 dotnet run --project AdhdKlok.csproj
 
 ## Functies
