@@ -1,9 +1,13 @@
-Hey everyone, this is a project of mine to combat hyperconcentration a bit in kids and devs with ADHD.
+# ADHD Klok (Python)
 
-You can set a timer to stop what you are doing. In the future, I am going to add a function to ignore the keyboard and mouse for 10 minutes. So that gives you a ten-minute break! And it takes you out of your hyperconcentration. Which I am also experiencing now that I am making the clock. :)
+This is a project of mine to help combat hyperconcentration in kids and developers with ADHD.
 
-For the test, the position.txt must be in the same directory as the clock.py.
+You can set a timer to stop what you are doing. In the future, I would like to add a function to ignore the keyboard and mouse for 10 minutes, so you can take a short break.
 
-Suggestions are welcome, this is my very first project and I am learning a lot about Python and I am starting to understand Git too, but be patient with me!!!!
+For the Python app, keep `position.txt` in the same directory as `Adhd-Klok.py`.
+
+The C# .NET version is in the [Adhdklok_C](./Adhdklok_C) directory.
+
+Suggestions are welcome. This is my first project, and I am learning a lot about Python and Git, so please be patient with me!
 
 Mario
