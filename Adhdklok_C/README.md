@@ -1,8 +1,8 @@
-
 Adhd-Klok
 Een klein bureaubladklokje voor Windows, gemaakt met C# en .NET 8 WinForms. Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 Screenshot
+
 
 
 
