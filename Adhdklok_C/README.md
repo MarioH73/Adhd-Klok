@@ -1,11 +1,21 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2bd3a78ac91c2ec69925718e91013441d6ed992a
 Adhd-Klok
 Een klein bureaubladklokje voor Windows, gemaakt met C# en .NET 8 WinForms. Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 Screenshot
+<<<<<<< HEAD
 ![Donker Thema](Media/Images/ScreenShots/Dark.png)             
 ![Licht Thema](Media/Images/ScreenShots/Light.png)
 
 
+=======
+
+
+
+>>>>>>> 2bd3a78ac91c2ec69925718e91013441d6ed992a
 Starten
 Benodigd: de .NET 8 SDK en Windows.
 
@@ -34,4 +44,8 @@ De vensterpositie wordt opgeslagen in Data/position.txt.
 Weerinformatie
 Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten.
 
+<<<<<<< HEAD
 Een internetverbinding is nodig voor de actuele temperatuur.
+=======
+Een internetverbinding is nodig voor de actuele temperatuur..
+>>>>>>> 2bd3a78ac91c2ec69925718e91013441d6ed992a
