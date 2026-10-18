@@ -1,17 +1,37 @@
-# ADHD Klok
 
+Adhd-Klok
 Een klein bureaubladklokje voor Windows, gemaakt met C# en .NET 8 WinForms. Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
-## Starten
+Screenshot
 
+
+
+Starten
 Benodigd: de .NET 8 SDK en Windows.
 
-```powershell
-dotnet run --project .\Adhdklok_C\AdhdKlok.csproj
-```
+dotnet run --project AdhdKlok.csproj
+Functies
+Tijd- en datumweergave
+Afteltimer met alarmgeluiden
+Actueel weer via Open-Meteo
+Donker en licht thema
+Opslaan van vensterpositie
+Uitschuifbaar instellingenmenu met animaties
+Altijd zichtbaar op het bureaublad
+Werking
+De klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
 
-De klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen. Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon open. Klik nogmaals op het icoon om het menu omhoog te laten inklappen. Openen en sluiten duren ongeveer 0,6 seconde. Via `Weergave` kies je het donkere thema of `Licht (Windows)`; de keuze wordt bewaard in `Data/theme.txt`. Het menu gebruikt in het donkere thema de kleuren van het berichtenpaneel met een donkerrode zijrand; een donkerrode scheidingslijn scheidt het instellingen-icoon van de melding. In het menu kun je ook een timer instellen, de weerlocatie wijzigen of de app afsluiten. Onder `Timer > Alarmgeluid` kun je kiezen uit de vier WAV-bestanden. De geselecteerde toon wordt gebruikt wanneer de timer afloopt. De vensterpositie staat in `Data/position.txt`.
+Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon open. Klik nogmaals op het icoon om het menu omhoog te laten inklappen.
 
-Wanneer de timer afloopt, verschijnt in het berichtenpaneel de melding dat je vijf minuten pauze moet nemen. De afbeeldings-, WAV- en positiebestanden worden tijdens het bouwen naar de uitvoermap gekopieerd.
+Openen en sluiten duren ongeveer 0,6 seconde.
 
-Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten. Een internetverbinding is nodig voor de actuele temperatuur.
+Via Weergave kies je het donkere thema of Licht (Windows). De keuze wordt bewaard in Data/theme.txt.
+
+Onder Timer > Alarmgeluid kun je kiezen uit vier WAV-bestanden. De geselecteerde toon wordt gebruikt wanneer de timer afloopt.
+
+De vensterpositie wordt opgeslagen in Data/position.txt.
+
+Weerinformatie
+Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten.
+
+Een internetverbinding is nodig voor de actuele temperatuur..
