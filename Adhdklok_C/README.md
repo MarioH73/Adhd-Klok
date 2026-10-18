@@ -63,6 +63,6 @@ Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuG
 
 # Licentie
 
-_Dit project valt onder de MIT License.     Copyright (c) 2026 MarioH73_
+_Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele_
 
 
