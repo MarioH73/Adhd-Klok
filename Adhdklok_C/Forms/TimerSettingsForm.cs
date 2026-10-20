@@ -1,6 +1,6 @@
 namespace AdhdKlok;
 
-internal sealed class TimerSettingsForm : Form
+internal sealed class TimerSettingsForm : SettingsDialogForm
 {
     private readonly NumericUpDown _hours = CreateInput();
     private readonly NumericUpDown _minutes = CreateInput();
@@ -8,14 +8,15 @@ internal sealed class TimerSettingsForm : Form
 
     public TimeSpan Duration { get; private set; }
 
-    public TimerSettingsForm()
+    public TimerSettingsForm(
+        string title = "Timer instellen",
+        TimeSpan? initialDuration = null,
+        string startButtonText = "Start timer") : base(title, new Size(260, 205))
     {
-        Text = "Timer instellen";
-        ClientSize = new Size(260, 205);
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        MaximizeBox = false;
-        MinimizeBox = false;
+        var duration = initialDuration.GetValueOrDefault();
+        _hours.Value = Math.Min((decimal)Math.Floor(duration.TotalHours), _hours.Maximum);
+        _minutes.Value = duration.Minutes;
+        _seconds.Value = duration.Seconds;
 
         var layout = new TableLayoutPanel
         {
@@ -31,7 +32,7 @@ internal sealed class TimerSettingsForm : Form
         AddRow(layout, 1, "Minuten:", _minutes);
         AddRow(layout, 2, "Seconden:", _seconds);
 
-        var startButton = new Button { Text = "Start timer", Dock = DockStyle.Fill };
+        var startButton = new Button { Text = startButtonText, Dock = DockStyle.Fill };
         startButton.Click += (_, _) =>
         {
             Duration = TimeSpan.FromHours((double)_hours.Value) +
@@ -49,7 +50,7 @@ internal sealed class TimerSettingsForm : Form
         };
         layout.Controls.Add(startButton, 0, 3);
         layout.SetColumnSpan(startButton, 2);
-        Controls.Add(layout);
+        ContentArea.Controls.Add(layout);
         AcceptButton = startButton;
     }
 

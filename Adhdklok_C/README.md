@@ -40,19 +40,25 @@ dotnet run --project AdhdKlok.csproj
 
 Functies
 
--*-  Tijd- en datumweergave
+_  Tijd- en datumweergave
 
--*-  Afteltimer met alarmgeluiden
+_  Aftel timer met alarmgeluiden
 
--*-  Actueel weer via Open-Meteo
+_  Pauze tijd instellen
 
--*-  Donker en licht thema
+_  Keuze om scherm uit te schakelen tijdens pauze, en schakelt na pauze weer aan
 
--*-  Opslaan van vensterpositie
+_  Keuze opstarten met Windows
 
--*-  Uitschuifbaar instellingenmenu met animaties
+_  Actueel weer via Open-Meteo
 
--*-  Altijd zichtbaar op het bureaublad
+_  Donker en licht thema
+
+_  Opslaan van vensterpositie
+
+_  Uitschuifbaar instellingenmenu met animaties
+
+_  Altijd zichtbaar op het bureaublad
 
 
 Werking

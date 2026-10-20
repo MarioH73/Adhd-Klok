@@ -1,0 +1,12 @@
+Overzicht van deze sessie
+
+- Pauzetimer toegevoegd: na de werktimer volgt een instelbare pauze (standaard 5 minuten).
+- Na de pauze klinkt het alarm. Druk op Y om dezelfde werktijd opnieuw te starten of op N om te stoppen.
+- Optie toegevoegd om het scherm tijdens de pauze uit te schakelen; na de pauze en bij afsluiten wordt het scherm weer ingeschakeld.
+- Het menu aangepast: timer- en pauze-instellingen staan bij elkaar en alarmgeluiden hebben een aparte sectie.
+- In de vastgezette modus staat het instellingenicoon tussen de 4 en 5. Het verschijnt bij aanwijzen en is gebroken wit en doorschijnend.
+- De menu-animatie ingesteld op een halve seconde. Het menu opent naast de klok en zoekt een plek op het bureaublad als daar onvoldoende ruimte is.
+- De M in TIMER is gebroken wit gemaakt. De verplaats-tooltip verschijnt alleen als de klok niet vaststaat.
+- Optie toegevoegd om ADHD Klok met Windows te starten. De klokpositie wordt bewaard en bij de volgende start hersteld.
+
+Controle: de .NET-app is gebouwd zonder fouten of waarschuwingen.

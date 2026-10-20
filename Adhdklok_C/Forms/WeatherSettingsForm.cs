@@ -1,6 +1,6 @@
 namespace AdhdKlok;
 
-internal sealed class WeatherSettingsForm : Form
+internal sealed class WeatherSettingsForm : SettingsDialogForm
 {
     private readonly TextBox _cityInput;
     private readonly TextBox _countryInput;
@@ -8,15 +8,8 @@ internal sealed class WeatherSettingsForm : Form
     public string City => _cityInput.Text.Trim();
     public string Country => _countryInput.Text.Trim().ToUpperInvariant();
 
-    public WeatherSettingsForm(string city, string country)
+    public WeatherSettingsForm(string city, string country) : base("Weerinstellingen", new Size(300, 185))
     {
-        Text = "Weerinstellingen";
-        ClientSize = new Size(300, 185);
-        FormBorderStyle = FormBorderStyle.FixedDialog;
-        StartPosition = FormStartPosition.CenterParent;
-        MaximizeBox = false;
-        MinimizeBox = false;
-
         _cityInput = new TextBox { Text = city, Dock = DockStyle.Fill };
         _countryInput = new TextBox { Text = country, Dock = DockStyle.Fill, MaxLength = 2 };
 
@@ -49,7 +42,7 @@ internal sealed class WeatherSettingsForm : Form
         };
         layout.Controls.Add(saveButton, 0, 2);
         layout.SetColumnSpan(saveButton, 2);
-        Controls.Add(layout);
+        ContentArea.Controls.Add(layout);
         AcceptButton = saveButton;
     }
 }
