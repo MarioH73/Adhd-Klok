@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2ce1c51d467d681bce3a5271dc7efd1d9aa19d11
 # <ins>Adhd-Klok</ins>
 
 Een klein bureaubladklokje voor Windows, 
@@ -9,6 +13,7 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 # _Screenshot_
 
+![Donker Thema](Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Media/Images/ScreenShots/Vast_Light.png)
 
 ![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
 
