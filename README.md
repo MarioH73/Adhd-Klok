@@ -1,7 +1,6 @@
 
 # <ins>Adhd-Klok</ins>
 
-
 Een klein bureaubladklokje voor Windows, 
 
 gemaakt met C# en .NET 8 WinForms. 
@@ -11,8 +10,8 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 # _Screenshot_
 
-![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
 
+![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
 
 
 # Starten
@@ -24,14 +23,21 @@ dotnet run --project AdhdKlok.csproj
 ## Functies
 
 -  Tijd- en datumweergave
+   
+-  Hert menu zit tussen de 4 en de 5
+  
+-  Instelbare Afteltimer en Pauzetijd met kiezen van Vier alarmgeluiden
 
--  Afteltimer met alarmgeluiden
+-  Ge keuze om tijdens de pauze het scherm uit te schakelen Zo lang als de ingestelde Pauze
+   let er wel op Het schermj reageerd pas op muis en toetsenbord als dew pauze voorbij is !
 
--  Actueel weer via Open-Meteo
+-  Actueel het Weer en Tempratuur via Open-Meteo
 
 -  Donker en licht thema
 
--  Opslaan van vensterpositie
+-  Vast zetten op het bureaublad
+
+-  Opstarten met Windows  
 
 -  Uitschuifbaar instellingenmenu met animaties
 
@@ -39,7 +45,6 @@ dotnet run --project AdhdKlok.csproj
 
 
 # Werking
-
 
 klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
 
@@ -60,5 +65,5 @@ Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuG
 
 # Licentie
 
-_Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele_
+_Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele_(R)
 
