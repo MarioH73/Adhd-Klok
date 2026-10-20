@@ -11,11 +11,7 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 # _Screenshot_
 
-![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Dark.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Light.png)
-
-
-
-
+![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
 
 
 
