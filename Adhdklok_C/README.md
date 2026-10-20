@@ -1,50 +1,55 @@
 
-# <ins>Adhd-Klok</ins>
+# Top Klok
 
-Een klein bureaubladklokje voor Windows, 
+Een bureaubladklokje voor Windows,
 
-gemaakt met C# en .NET 8 WinForms. 
+gemaakt met C# en .NET 8 WinForms.
 
-Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
+## Focus en Pauzes
 
+De klok is ontworpen voor mensen die gemakkelijk opgaan in hun werk, studie of hobby. Via de ingebouwde timer kun je een werkperiode en een pauzetijd instellen.
 
-# _Screenshot_
+Wanneer de werktijd afloopt, start automatisch de pauze. Tijdens deze pauze kan de applicatie het scherm uitschakelen,Door het vinkje in het menu aan te zetten.
+ Hierdoor word je gestimuleerd om daadwerkelijk even afstand te nemen van de computer en een korte onderbreking te nemen.
 
+Gebruik die tijd bijvoorbeeld voor een kop koffie, iets te eten, een korte wandeling of een knuffel voor je huisdier.
 
-![Donker Thema](Media/Images/ScreenShots/Vast_Dark.png)     ![Licht Thema](Media/Images/ScreenShots/Vast_Light.png)
+## _Screenshot_
 
+![Donker Thema](/Media/Images/ScreenShots/Dark.png)     ![Licht Thema](Media/Images/ScreenShots/Light.png)
 
-# Starten
+## Ontwikkelaars
 
-Benodigd: de .NET 8 SDK en Windows.
+Benodigd:
+
+- .NET 8 SDK
+- Windows 10 of 11
+
+Starten vanuit de broncode:
 
 dotnet run --project AdhdKlok.csproj
 
+## Installatie
+
+Download de laatste versie via de Releases-pagina en start de installer.
+
 ## Functies
 
--  Tijd- en datumweergave
-   
--  Hert menu zit tussen de 4 en de 5
-  
--  Instelbare Afteltimer en Pauzetijd met kiezen van Vier alarmgeluiden
+- Tijd- en datumweergave
 
--  Ge keuze om tijdens de pauze het scherm uit te schakelen Zo lang als de ingestelde Pauze
-   let er wel op Het schermj reageerd pas op muis en toetsenbord als dew pauze voorbij is !
+- Afteltimer met alarmgeluiden
 
--  Actueel het Weer en Tempratuur via Open-Meteo
+- Actueel weer via Open-Meteo
 
--  Donker en licht thema
+- Donker en licht thema
 
--  Vast zetten op het bureaublad
+- Opslaan van vensterpositie
 
--  Opstarten met Windows  
+- Uitschuifbaar instellingenmenu met animaties
 
--  Uitschuifbaar instellingenmenu met animaties
+- Altijd zichtbaar op het bureaublad
 
--  Altijd zichtbaar op het bureaublad
-
-
-# Werking
+## Werking
 
 klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
 
@@ -60,9 +65,8 @@ Weerinformatie
 
 Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten.
 
+_Een internetverbinding is nodig voor de actuele temperatuur._
 
-# _Een internetverbinding is nodig voor de actuele temperatuur._
+## Licentie
 
-# Licentie
-
-_Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele_(R)
+Dit project valt onder de MIT License. Copyright (c) 2026 Mario Hägele(R)
