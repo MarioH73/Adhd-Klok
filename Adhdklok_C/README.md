@@ -24,14 +24,6 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 ## Starten
 
-![Donker Thema](Media/Images/ScreenShots/Dark.png)     ![Licht Thema](Media/Images/ScreenShots/Light.png)
-
-
-
-
-
-## Werking
-
 
 Benodigd: de .NET 8 SDK en Windows.
 
