@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-#### <ins>Adhd-Klok</ins>
-=======
 
 # <ins>Adhd-Klok</ins>
->>>>>>> e9ffba18142be9de1e7543186f78188efce45077
 
-
-Een klein bureaubladklokje voor Windows, 
+Een bureaubladklokje voor Windows, 
 
 gemaakt met C# en .NET 8 WinForms. 
 
@@ -14,7 +9,6 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 
 # _Screenshot_
-<<<<<<< HEAD
 
 
 
@@ -29,7 +23,6 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 
 ## Starten
-=======
 
 ![Donker Thema](Media/Images/ScreenShots/Dark.png)     ![Licht Thema](Media/Images/ScreenShots/Light.png)
 
@@ -37,45 +30,24 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 
 
+## Werking
 
-
-# Starten
->>>>>>> e9ffba18142be9de1e7543186f78188efce45077
 
 Benodigd: de .NET 8 SDK en Windows.
 
 dotnet run --project AdhdKlok.csproj
 
-<<<<<<< HEAD
 
 
 ## Functies
-=======
-## Functies
 
--  Tijd- en datumweergave
-
--  Afteltimer met alarmgeluiden
-
--  Actueel weer via Open-Meteo
-
--  Donker en licht thema
-
--  Opslaan van vensterpositie
-
--  Uitschuifbaar instellingenmenu met animaties
-
--  Altijd zichtbaar op het bureaublad
-
-
-# Werking
->>>>>>> e9ffba18142be9de1e7543186f78188efce45077
 
 -  Tijd- en datumweergave
 
 -  Aftel-timer en Pauze instellen met alarmgeluiden
 
-- Keuze om het scherm uit te zetten zonder reackt op  muis of toetsenbord      tot de pauze over is, en herstelt na de pauze.
+- Keuze om het scherm uit te zetten zonder reackt op  muis of toetsenbord
+  tot de pauze over is, en herstelt na de pauze.
 
 -  Keuze om de klok vast te zetten op bureaublad
 
@@ -95,6 +67,7 @@ dotnet run --project AdhdKlok.csproj
 
 ## Werking
 
+
 klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
 
 Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon open. Klik nogmaals op het icoon om het menu omhoog te laten inklappen.
@@ -113,7 +86,6 @@ Weerinformatie
 Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten.
 
 
-<<<<<<< HEAD
 # _!!!!! Een internetverbinding is nodig voor het actueele weer en tempratuur !!!!!._
 
 
@@ -121,12 +93,8 @@ Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuG
 # Licentie
 
 _Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele (R)_
-=======
-# _Een internetverbinding is nodig voor de actuele temperatuur._
+
 
 # Licentie
 
-_Dit project valt onder de MIT License.     Copyright (c) 2026 Mario Hägele_
 
-
->>>>>>> e9ffba18142be9de1e7543186f78188efce45077
