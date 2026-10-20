@@ -10,17 +10,10 @@ Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
 
 # _Screenshot_
 
+![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)    ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
 
 
-![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Na_Donker.png)     ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Na_Light.png)
-
-
-# _Vast aan BureauBlad_
-
-
-![Donker Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Dark.png)      ![Licht Thema](Adhdklok_C/Media/Images/ScreenShots/Vast_Light.png)
-
-
+     
 
 ## Starten
 
