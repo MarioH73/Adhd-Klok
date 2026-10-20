@@ -1,11 +1,31 @@
 
-# <ins>Adhd-Klok</ins>
 
-Een klein bureaubladklokje voor Windows, 
+# <ins>Desktop Clock</ins>
 
-gemaakt met C# en .NET 8 WinForms. 
+Een bureaubladklok voor Windows, gemaakt met C# en .NET 8 WinForms.
 
-Het klokje toont de tijd, datum, een afteltimer en het actuele weer.
+Het klokje toont de huidige tijd, datum, een afteltimer en het actuele weer.
+
+Deze applicatie is speciaal ontwikkeld voor developers, studenten en iedereen die zo opgaat in coderen, leren, huiswerk maken of andere werkzaamheden dat een pauze nemen er vaak bij inschiet.
+
+De klok fungeert als een persoonlijke hulpmiddel om een gezonde balans tussen werken en rusten te behouden. Je kunt een werktimer instellen die aftelt naar je volgende pauze. Daarnaast kun je zelf bepalen hoe lang de pauze duurt.
+
+Voor extra motivatie kun je ervoor kiezen om tijdens de pauze het scherm automatisch uit te laten schakelen. Gedurende deze ingestelde pauzetijd reageert de computer niet op muis- of toetsenbordinvoer, zodat je echt even afstand neemt van je werk.
+
+Gebruik die tijd bijvoorbeeld om:
+
+Een kop koffie of thee te drinken ☕
+Iets te eten te pakken 🥪
+Even naar buiten te gaan 🚶
+Je partner een knuffel te geven ❤️
+Je huisdier wat aandacht te geven 😺
+Of simpelweg iets anders te doen dan naar een scherm te staren
+
+#  Advies
+
+Begin rustig met een werkperiode van 30 minuten, gevolgd door 15 minuten pauze. Zo kun je wennen aan het ritme.
+
+Wanneer dit goed bevalt, kun je de werktijd eventueel uitbreiden naar maximaal 60 minuten, met daarna 15 minuten pauze. Persoonlijk ervaar ik deze verhouding als een prettige en gezonde balans tussen concentratie en ontspanning.
 
 
 # _Screenshot_
@@ -46,13 +66,17 @@ dotnet run --project AdhdKlok.csproj
 
 # Werking
 
-klok is randloos. Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
+klok is randloos. 
+Sleep het venster om het te verplaatsen en klik op het instellingen-icoon in het berichtenpaneel onderaan om het uitklapmenu te openen.
 
-Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon open. Klik nogmaals op het icoon om het menu omhoog te laten inklappen.
+Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon open.
+ Klik nogmaals op het icoon om het menu omhoog te laten inklappen.
 
-Via Weergave kies je het donkere thema of Licht (Windows). De keuze wordt bewaard in Data/theme.txt.
+Via Weergave kies je het donkere thema of Licht (Windows). 
+De keuze wordt bewaard in Data/theme.txt.
 
-Onder Timer > Alarmgeluid kun je kiezen uit vier WAV-bestanden. De geselecteerde toon wordt gebruikt wanneer de timer afloopt.
+Onder Timer > Alarmgeluid kun je kiezen uit vier WAV-bestanden. 
+De geselecteerde toon wordt gebruikt wanneer de timer afloopt.
 
 De vensterpositie wordt opgeslagen in Data/position.txt.
 
