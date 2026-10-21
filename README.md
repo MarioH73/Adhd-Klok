@@ -17,7 +17,7 @@ Gebruik die tijd bijvoorbeeld voor een kop koffie, iets te eten, een korte wande
 
 ## _Screenshot_
 
-![Donker Thema](TopKlok/Media/Images/ScreenShots/Vast_Dark.png) ![Licht Thema](TopKlopk/Media/Images/ScreenShots/Vast_Light.png)
+![Donker Thema](TopKlok/Media/Images/ScreenShots/Vast_Dark.png) ![Licht Thema](TopKlok/Media/Images/ScreenShots/Vast_Light.png)
 
 ## Ontwikkelaars
 
