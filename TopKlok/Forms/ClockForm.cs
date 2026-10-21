@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Win32;
 
-namespace AdhdKlok;
+namespace TopKlok;
 
 internal sealed class ClockForm : Form
 {

@@ -1,4 +1,4 @@
-namespace AdhdKlok;
+namespace TopKlok;
 
 internal sealed class WeatherSettingsForm : SettingsDialogForm
 {
@@ -46,3 +46,4 @@ internal sealed class WeatherSettingsForm : SettingsDialogForm
         AcceptButton = saveButton;
     }
 }
+

@@ -1,4 +1,4 @@
-namespace AdhdKlok;
+namespace TopKlok;
 
 internal abstract class SettingsDialogForm : Form
 {

@@ -1,4 +1,4 @@
-namespace AdhdKlok;
+namespace TopKlok;
 
 internal sealed class TimerSettingsForm : SettingsDialogForm
 {
