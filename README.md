@@ -29,7 +29,7 @@ Benodigd:
 
 Starten vanuit de broncode:
 
-dotnet run --project AdhdKlok.csproj
+dotnet run --project TopKlok.csproj
 
 ## Installatie
 
