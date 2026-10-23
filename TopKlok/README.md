@@ -41,7 +41,13 @@ Download de laatste versie via de Releases-pagina en start de installer.
 
 - Actueel weer via Open-Meteo
 
+- Taal en datumweergave op basis van de Windows-taal
+
+- Lokale systeemtijd en landinstelling
+
 - Donker en licht thema
+
+- Optioneel Windows-klikgeluid voor muisklikken in de app
 
 - Opslaan van vensterpositie
 
@@ -57,15 +63,23 @@ Het icoon draait kort en het menu klapt na een korte vertraging onder het icoon 
 
 Via Weergave kies je het donkere thema of Licht (Windows). De keuze wordt bewaard in Data/theme.txt.
 
+Via Klikgeluid aan/uit schakel je het Windows-menuklikgeluid in of uit voor muisklikken in de app. De keuze wordt bewaard.
+
 Onder Timer > Alarmgeluid kun je kiezen uit vier WAV-bestanden. De geselecteerde toon wordt gebruikt wanneer de timer afloopt.
 
-De vensterpositie wordt opgeslagen in Data/position.txt.
+Sluit je het venster Timer instellen met het kruisje, dan wordt de actieve timer teruggezet naar 00:00:00.
+
+De vensterpositie wordt in Data/position.txt opgeslagen ten opzichte van het scherm waarop de klok staat. Zo wordt de klok bij het opnieuw starten teruggezet op hetzelfde scherm en op dezelfde plek. Bestaande opgeslagen posities blijven ondersteund.
 
 Weerinformatie
 
 Het weer wordt opgehaald via Open-Meteo en vereist geen API-sleutel of extra NuGet-pakketten.
 
+De app gebruikt de Windows-locatie als die beschikbaar is. De coördinaten worden naar Open-Meteo gestuurd om het lokale weer op te halen. Als locatie niet beschikbaar is of geen toestemming heeft, wordt de handmatig ingestelde plaats gebruikt. Die plaats en het land worden bewaard in `weather-location.txt`. Nederlands en Engels worden ondersteund; andere Windows-talen gebruiken Engels.
+
 _Een internetverbinding is nodig voor de actuele temperatuur._
+
+Tijd en timers volgen de lokale tijd van Windows.
 
 ## Licentie
 

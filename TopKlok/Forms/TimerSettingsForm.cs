@@ -2,14 +2,14 @@ namespace TopKlok;
 
 internal sealed class TimerSettingsForm : SettingsDialogForm
 {
-    private readonly NumericUpDown _hours = CreateInput();
-    private readonly NumericUpDown _minutes = CreateInput();
-    private readonly NumericUpDown _seconds = CreateInput();
+    private readonly NumericUpDown _hours = CreateInput(24);
+    private readonly NumericUpDown _minutes = CreateInput(59);
+    private readonly NumericUpDown _seconds = CreateInput(59);
 
     public TimeSpan Duration { get; private set; }
 
     public TimerSettingsForm(
-        string title = "Timer instellen",
+        string title = "Set timer",
         TimeSpan? initialDuration = null,
         string startButtonText = "Start timer") : base(title, new Size(260, 205))
     {
@@ -28,9 +28,9 @@ internal sealed class TimerSettingsForm : SettingsDialogForm
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
         layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
 
-        AddRow(layout, 0, "Uren:", _hours);
-        AddRow(layout, 1, "Minuten:", _minutes);
-        AddRow(layout, 2, "Seconden:", _seconds);
+        AddRow(layout, 0, AppLanguage.Text("Uren:", "Hours:"), _hours);
+        AddRow(layout, 1, AppLanguage.Text("Minuten:", "Minutes:"), _minutes);
+        AddRow(layout, 2, AppLanguage.Text("Seconden:", "Seconds:"), _seconds);
 
         var startButton = new Button { Text = startButtonText, Dock = DockStyle.Fill };
         startButton.Click += (_, _) =>
@@ -40,7 +40,9 @@ internal sealed class TimerSettingsForm : SettingsDialogForm
                        TimeSpan.FromSeconds((double)_seconds.Value);
             if (Duration <= TimeSpan.Zero)
             {
-                MessageBox.Show(this, "Stel een tijd groter dan nul in.", "Ongeldige timer",
+                MessageBox.Show(this,
+                    AppLanguage.Text("Stel een tijd groter dan nul in.", "Enter a duration greater than zero."),
+                    AppLanguage.Text("Ongeldige timer", "Invalid timer"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -54,10 +56,10 @@ internal sealed class TimerSettingsForm : SettingsDialogForm
         AcceptButton = startButton;
     }
 
-    private static NumericUpDown CreateInput() => new()
+    private static NumericUpDown CreateInput(int maximum) => new()
     {
         Minimum = 0,
-        Maximum = 999,
+        Maximum = maximum,
         Dock = DockStyle.Fill
     };
 

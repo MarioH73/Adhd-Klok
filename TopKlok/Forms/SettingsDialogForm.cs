@@ -65,7 +65,11 @@ internal abstract class SettingsDialogForm : Form
         };
         closeButton.FlatAppearance.BorderSize = 0;
         closeButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 24, 36);
-        closeButton.Click += (_, _) => Close();
+        closeButton.Click += (_, _) =>
+        {
+            WasClosedWithCloseButton = true;
+            Close();
+        };
         _titleBar.Controls.Add(_titleLabel);
         _titleBar.Controls.Add(closeButton);
 
@@ -87,6 +91,8 @@ internal abstract class SettingsDialogForm : Form
     }
 
     protected Control ContentArea { get; }
+
+    public bool WasClosedWithCloseButton { get; private set; }
 
     public void ApplyTheme(bool darkTheme)
     {
