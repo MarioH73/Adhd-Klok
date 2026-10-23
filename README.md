@@ -16,8 +16,9 @@ Wanneer de werktijd afloopt, start automatisch de pauze. Tijdens deze pauze kan 
 Gebruik die tijd bijvoorbeeld voor een kop koffie, iets te eten, een korte wandeling of een knuffel voor je huisdier.
 
 ## _Screenshot_
+![Donker Thema](TopKlok/Media/Images/ScreenShots/Thema-Dark-Final.png) ![Top Klok light theme](TopKlok/Media/Images/ScreenShots/Thema-Ligt-Final.png)
 
-![Donker Thema](TopKlok/Media/Images/ScreenShots/Vast_Dark.png) ![Licht Thema](TopKlok/Media/Images/ScreenShots/Vast_Light.png)
+![Promotional video introducing the Top Klok desktop clock application.](Topklok/Media/Images/ScreenShots/TopKlok_Promo.mp4)
 
 ## Ontwikkelaars
 
